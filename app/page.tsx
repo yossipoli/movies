@@ -6,9 +6,10 @@ import { signal } from '@preact/signals-react'
 import { Movie } from './types/movie'
 
 const Home = async () => {
-	// const movies = signal<Movie[]>(await search.getAllMovies())
+	const movies = signal<Movie[]>(await search.getAllMovies())
+	// const movies = signal<Movie[]>(await search.getMoviesByTitle('300'))
 	// const movies = signal<Movie[]>(await search.getMoviesByGenre('Action AND Crime'))
-	const movies = signal<Movie[]>(await search.getMoviesBetweenYears(2007, 2010))
+	// const movies = signal<Movie[]>(await search.getMoviesBetweenYears(2007, 2010))
 	const currentMovie = signal<Movie | null>(null)
 
 	const setCurrentMovie = (movie: Movie) => {
