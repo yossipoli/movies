@@ -28,6 +28,7 @@ const Card: FC<CardProps> = ({ movie, onClick }) => {
 					<IconButton aria-label='play'>
 						<PlayCircleFilledIcon
 						// onClick={() => onClick(movie)}
+						// onClick={() => {}}
 						/>
 					</IconButton>
 				}

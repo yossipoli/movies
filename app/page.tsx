@@ -1,12 +1,14 @@
 import { Box, Container, Typography } from '@mui/material'
 import Search from './search/page'
-import { getAllMovies } from './actions/elasticsearch'
+import * as search from './actions/elasticsearch'
 import ModalComponent from './components/Modal'
 import { signal } from '@preact/signals-react'
 import { Movie } from './types/movie'
 
 const Home = async () => {
-	const movies = signal<Movie[]>(await getAllMovies())
+	// const movies = signal<Movie[]>(await search.getAllMovies())
+	// const movies = signal<Movie[]>(await search.getMoviesByGenre('Action AND Crime'))
+	const movies = signal<Movie[]>(await search.getMoviesBetweenYears(2007, 2010))
 	const currentMovie = signal<Movie | null>(null)
 
 	const setCurrentMovie = (movie: Movie) => {

@@ -4,7 +4,7 @@ import { Movie } from '../types/movie'
 import Each from '../components/Each'
 
 type SearchProps = {
-	movies: Movie[]
+	movies: any
 	onClick: (movie: Movie) => void
 }
 
