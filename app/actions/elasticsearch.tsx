@@ -30,6 +30,37 @@ export const getAllMovies = async (
 	}
 }
 
+export const getMoviesByTitle = async (
+	title: string,
+	index: string = 'movies',
+	query?: string
+): Promise<any[]> => {
+	try {
+		const results: any = await esClient.search({
+			index,
+			body: {
+				query: {
+					bool: {
+						must: [
+							{
+								query_string: {
+									default_field: 'Title',
+									query: `${title}`,
+								},
+							},
+						],
+					},
+				},
+			},
+		})
+
+		return results.hits.hits
+	} catch (error) {
+		console.error('Error searching documents:', error)
+		throw error
+	}
+}
+
 export const getMoviesByGenre = async (
 	genre: Genre | string,
 	index: string = 'movies',
