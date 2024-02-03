@@ -18,7 +18,7 @@ const Movies: FC<SearchProps> = ({ movies, onClick }) => {
 						<Card
 							key={movie._id}
 							movie={movie._source}
-							// onClick={onClick}
+							onClick={onClick}
 						/>
 					)}
 				/>

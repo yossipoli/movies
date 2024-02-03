@@ -5,17 +5,12 @@ import PlayCircleFilledIcon from '@mui/icons-material/PlayCircleFilled'
 import { FC } from 'react'
 import { Movie } from '../types/movie'
 
-// import { currentMovie } from '../page'		//second way
-
 type CardProps = {
 	movie: Movie
-	// onClick: (movie: Movie) => void //the way
+	onClick: (movie: Movie) => void
 }
 
-//the way
-// const Card: FC<CardProps> = ({ movie, onClick }) => {
-//second way or checker
-const Card: FC<CardProps> = ({ movie }) => {
+const Card: FC<CardProps> = ({ movie, onClick }) => {
 	return (
 		<Container sx={{ border: '1px solid grey', margin: '10px 0' }}>
 			<CardHeader
@@ -32,18 +27,7 @@ const Card: FC<CardProps> = ({ movie }) => {
 				}
 				action={
 					<IconButton aria-label='play'>
-						<PlayCircleFilledIcon
-							// onClick={() => onClick(movie)} //the way
-
-							// onClick={() => {						//second way
-							// 	currentMovie.value = movie
-							// }}
-
-							//check
-							onClick={() => {
-								console.log(`the movie "${movie.Title}" has selected \r`, movie)
-							}}
-						/>
+						<PlayCircleFilledIcon onClick={() => onClick(movie)} />
 					</IconButton>
 				}
 				title={movie.Title}

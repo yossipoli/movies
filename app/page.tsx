@@ -24,15 +24,15 @@ const Home = async () => {
 		)
 	}
 
-	const currentMovie = signal<Movie | null>(null)
+	const currentMovie = signal<Movie | undefined>(undefined)
 
-	const setCurrentMovie = (movie: Movie) => {
-		// 'use server'
+	const setCurrentMovie = async (movie: Movie) => {
+		'use server'
 		currentMovie.value = movie
 	}
 
 	const closeModal = () => {
-		currentMovie.value = null
+		currentMovie.value = undefined
 	}
 
 	return (

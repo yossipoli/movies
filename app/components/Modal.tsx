@@ -4,7 +4,7 @@ import { FC } from 'react'
 import { Movie } from '../types/movie'
 
 type ModalComponentProps = {
-	currentMovie: Movie | null
+	currentMovie: Movie | undefined
 	onClose: () => void
 }
 
