@@ -1,14 +1,14 @@
 import { FC } from 'react'
-import Card from '../components/Card'
-import { Movie } from '../types/movie'
-import Each from '../components/Each'
+import Card from './Card'
+import { Movie, MovieRespond } from '../types/movie'
+import Each from './Each'
 
 type SearchProps = {
-	movies: any
+	movies: MovieRespond[]
 	onClick: (movie: Movie) => void
 }
 
-const Search: FC<SearchProps> = ({ movies, onClick }) => {
+const Movies: FC<SearchProps> = ({ movies, onClick }) => {
 	return (
 		<>
 			{
@@ -18,7 +18,7 @@ const Search: FC<SearchProps> = ({ movies, onClick }) => {
 						<Card
 							key={movie._id}
 							movie={movie._source}
-							onClick={onClick}
+							// onClick={onClick}
 						/>
 					)}
 				/>
@@ -27,4 +27,4 @@ const Search: FC<SearchProps> = ({ movies, onClick }) => {
 	)
 }
 
-export default Search
+export default Movies

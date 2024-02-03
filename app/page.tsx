@@ -1,37 +1,53 @@
 import { Box, Container, Typography } from '@mui/material'
-import Search from './search/page'
+import Movies from './components/Movies'
 import * as search from './actions/elasticsearch'
 import ModalComponent from './components/Modal'
 import { signal } from '@preact/signals-react'
-import { Movie } from './types/movie'
+import { Movie, MovieRespond } from './types/movie'
+import SearchForm from './components/Search'
 
 const Home = async () => {
-	const movies = signal<Movie[]>(await search.getAllMovies())
-	// const movies = signal<Movie[]>(await search.getMoviesByTitle('300'))
-	// const movies = signal<Movie[]>(await search.getMoviesByGenre('Action AND Crime'))
-	// const movies = signal<Movie[]>(await search.getMoviesBetweenYears(2007, 2010))
+	const movies = signal<MovieRespond[]>(await search.getAllMovies())
+
+	const getFilteredMovies = async (
+		title: string,
+		genre: string[],
+		startYear: string,
+		endYear: string
+	) => {
+		'use server'
+		movies.value = await search.searchFilteredMovies(
+			title,
+			genre,
+			startYear,
+			endYear
+		)
+	}
+
 	const currentMovie = signal<Movie | null>(null)
 
 	const setCurrentMovie = (movie: Movie) => {
-		console.log('choosing a movie..')
+		// 'use server'
 		currentMovie.value = movie
 	}
 
 	const closeModal = () => {
-		console.log('closing modal')
 		currentMovie.value = null
 	}
 
 	return (
 		<Container>
 			<Box>
+				<SearchForm filterMovies={getFilteredMovies} />
+			</Box>
+			<Box>
 				<Typography
-					variant='h2'
-					color='initial'>
-					All
+					variant='h3'
+					color='Highlight'>
+					Movies
 				</Typography>
 			</Box>
-			<Search
+			<Movies
 				movies={movies.value}
 				onClick={setCurrentMovie}
 			/>

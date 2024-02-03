@@ -16,6 +16,7 @@ export const getAllMovies = async (
 	try {
 		const results: any = await esClient.search({
 			index,
+			size: 100,
 			body: {
 				query: {
 					match_all: {},
@@ -105,6 +106,56 @@ export const getMoviesBetweenYears = async (
 				query: {
 					bool: {
 						must: [
+							{
+								range: {
+									Release_Date: {
+										gte: `${startYear}-01-01`,
+										lte: `${endYear}-12-31`,
+									},
+								},
+							},
+						],
+					},
+				},
+			},
+		})
+
+		return results.hits.hits
+	} catch (error) {
+		console.error('Error searching documents:', error)
+		throw error
+	}
+}
+
+export const searchFilteredMovies = async (
+	title: string,
+	genre: string[],
+	startYear: string,
+	endYear: string,
+	index: string = 'movies',
+	query?: string
+): Promise<any[]> => {
+	if (!startYear) startYear = '1900'
+	if (!endYear) endYear = '2030'
+	try {
+		const results: any = await esClient.search({
+			index,
+			body: {
+				query: {
+					bool: {
+						must: [
+							{
+								query_string: {
+									default_field: 'Title',
+									query: `${title}`,
+								},
+							},
+							{
+								query_string: {
+									default_field: 'Genre',
+									query: `${genre.join(', ')}`,
+								},
+							},
 							{
 								range: {
 									Release_Date: {

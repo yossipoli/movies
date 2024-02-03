@@ -20,3 +20,10 @@ export type Movie = {
 	Genre: string
 	Vote_Count?: number
 }
+
+export type MovieRespond = {
+	_index: 'movies'
+	_id: string
+	_score: number
+	_source: Movie
+}
